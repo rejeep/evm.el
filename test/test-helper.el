@@ -1,5 +1,4 @@
 (require 'f)
-(require 'ert)
 
 (defvar evm-test/test-path
   (f-dirname (f-this-file)))
