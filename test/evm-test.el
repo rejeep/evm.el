@@ -1,4 +1,4 @@
-(ert-deftest evm-test/find ()
+(ert-deftest evm-find-test ()
   (with-sandbox
    (let ((emacs-test-path (f-expand "emacs-test")))
      (f-mkdir emacs-test-path)
