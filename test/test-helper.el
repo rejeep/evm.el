@@ -16,6 +16,9 @@
        (f-delete evm-sandbox-path 'force))
      (f-mkdir evm-sandbox-path)
      (f-write "emacs-test" 'utf-8 "current")
-     ,@body))
+     (let ((emacs-test-path (f-expand "emacs-test" evm-sandbox-path)))
+       (f-mkdir emacs-test-path)
+       (let ((default-directory emacs-test-path))
+         ,@body))))
 
 (require 'evm (f-expand "evm" evm-test/root-path))
