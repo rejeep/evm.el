@@ -26,6 +26,22 @@ Find file with `name` in currently selected Emacs.
 (evm-find "emacsclient") ;; => /usr/local/evm/emacs-24.3/bin/emacsclient
 ```
 
+### evm-emacs `()`
+
+Return absolute path to Emacs binary.
+
+```lisp
+(evm-emacs) ;; => /usr/local/evm/emacs-24.3/bin/emacs
+```
+
+### evm-emacsclient `()`
+
+Return absolute path to Emacsclient binary.
+
+```lisp
+(evm-emacsclient) ;; => /usr/local/evm/emacs-24.3/bin/emacsclient
+```
+
 ## Contribution
 
 Contribution is much welcome!
