@@ -45,6 +45,10 @@
   "Path to currently selected package."
   (f-expand (evm--current) evm-local-path))
 
+(defun evm--osx? ()
+  "Return true if OSX, false otherwise."
+  (eq system-type 'darwin))
+
 (defun evm-find (file)
   "Find FILE in the currently selected Emacs installation."
   (-first-item
@@ -53,6 +57,22 @@
     (lambda (path)
       (equal (f-filename path) file))
     'recursive)))
+
+(defun evm-emacs ()
+  "Return absolute path to Emacs binary."
+  (let ((default-directory (evm--installation-path)))
+    (f-expand
+     (if (and (evm--osx?) (f-dir? "Emacs.app"))
+         (f-join "Emacs.app" "Contents" "MacOS" "Emacs")
+       (f-join "bin" "emacs")))))
+
+(defun evm-emacsclient ()
+  "Return absolute path to Emacsclient binary."
+  (let ((default-directory (evm--installation-path)))
+    (f-expand
+     (if (and (evm--osx?) (f-dir? "Emacs.app"))
+         (f-join "Emacs.app" "Contents" "MacOS" "bin" "emacsclient")
+       (f-join "bin" "emacsclient")))))
 
 (provide 'evm)
 
