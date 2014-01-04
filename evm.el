@@ -39,7 +39,7 @@
   "Name of currently selected package."
   (let ((evm-current-path (f-expand "current" evm-local-path)))
     (when (f-file? evm-current-path)
-        (f-read evm-current-path))))
+      (f-read evm-current-path))))
 
 (defun evm--installation-path ()
   "Path to currently selected package."
