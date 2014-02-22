@@ -32,18 +32,13 @@
 (require 'f)
 (require 'dash)
 
-(defvar evm-local-path (f-join "/" "usr" "local" "evm")
-  "Path to EVM local.")
-
-(defun evm--current ()
-  "Name of currently selected package."
-  (let ((evm-current-path (f-expand "current" evm-local-path)))
-    (when (f-file? evm-current-path)
-      (f-read evm-current-path))))
+(defvar evm-path
+  (f-expand ".evm" "~")
+  "Path to EVM installation.")
 
 (defun evm--installation-path ()
   "Path to currently selected package."
-  (f-expand (evm--current) evm-local-path))
+  (f-canonical (f-join evm-path "bin" "emacs")))
 
 (defun evm--osx? ()
   "Return true if OSX, false otherwise."
