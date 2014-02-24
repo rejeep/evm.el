@@ -52,6 +52,7 @@
   "Return true if OSX, false otherwise."
   (eq system-type 'darwin))
 
+;;;###autoload
 (defun evm-find (file)
   "Find FILE in the currently selected Emacs installation."
   (-first-item
@@ -61,6 +62,7 @@
       (equal (f-filename path) file))
     'recursive)))
 
+;;;###autoload
 (defun evm-emacs ()
   "Return absolute path to Emacs binary."
   (let ((default-directory (evm--installation-path)))
@@ -69,6 +71,7 @@
          (f-join "Emacs.app" "Contents" "MacOS" "Emacs")
        (f-join "bin" "emacs")))))
 
+;;;###autoload
 (defun evm-emacsclient ()
   "Return absolute path to Emacsclient binary."
   (let ((default-directory (evm--installation-path)))
