@@ -1,5 +1,8 @@
 (ert-deftest evm-find-test ()
   (with-sandbox
+   (let ((bin-path (f-join emacs-test-path "bin" "emacs")))
+     (f-touch bin-path)
+     (f-symlink bin-path evm-emacs))
    (f-mkdir "foo" "bar")
    (f-mkdir "baz")
    (f-touch (f-join "foo" "FOO"))
@@ -12,28 +15,32 @@
 
 (ert-deftest evm-emacs-test/osx ()
   (with-sandbox
-   (f-mkdir "Emacs.app" "Contents" "MacOS")
-   (f-touch (f-join "Emacs.app" "Contents" "MacOS" "Emacs"))
+   (let ((bin-path (f-join emacs-test-path "Emacs.app" "Contents" "MacOS" "Emacs")))
+     (f-touch bin-path)
+     (f-symlink bin-path evm-emacs))
    (let ((system-type 'darwin))
      (should (string= (evm-emacs) (f-expand (f-join "Emacs.app" "Contents" "MacOS" "Emacs")))))))
 
 (ert-deftest evm-emacs-test/non-osx ()
   (with-sandbox
-   (f-mkdir "bin")
-   (f-touch (f-join "bin" "emacs"))
+   (let ((bin-path (f-join emacs-test-path "bin" "emacs")))
+     (f-touch bin-path)
+     (f-symlink bin-path evm-emacs))
    (let ((system-type 'msdos))
      (should (string= (evm-emacs) (f-expand (f-join "bin" "emacs")))))))
 
 (ert-deftest evm-emacsclient-test/osx ()
   (with-sandbox
-   (f-mkdir "Emacs.app" "Contents" "MacOS")
-   (f-touch (f-join "Emacs.app" "Contents" "MacOS" "Emacs"))
+   (let ((bin-path (f-join emacs-test-path "Emacs.app" "Contents" "MacOS" "Emacs")))
+     (f-touch bin-path)
+     (f-symlink bin-path evm-emacs))
    (let ((system-type 'darwin))
      (should (string= (evm-emacsclient) (f-expand (f-join "Emacs.app" "Contents" "MacOS" "bin" "emacsclient")))))))
 
 (ert-deftest evm-emacsclient-test/non-osx ()
   (with-sandbox
-   (f-mkdir "bin")
-   (f-touch (f-join "bin" "emacs"))
+   (let ((bin-path (f-join emacs-test-path "bin" "emacs")))
+     (f-touch bin-path)
+     (f-symlink bin-path evm-emacs))
    (let ((system-type 'msdos))
      (should (string= (evm-emacsclient) (f-expand (f-join "bin" "emacsclient")))))))
