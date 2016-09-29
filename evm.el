@@ -42,10 +42,13 @@
 
 (defun evm--installation-path ()
   "Path to currently selected package."
-  (let ((path (f-canonical (f-join evm-path "bin" "evm-emacs"))))
-    (if (f-exists? path)
-        (car (s-match (f-join evm-local-path "\\([^/]+\\)") path))
-      (error "No currently selected Emacs"))))
+  (let ((evm-emacs-path (f-join evm-path "bin" "evm-emacs")))
+    (let ((path (if (f-symlink? evm-emacs-path)
+                    (f-canonical evm-emacs-path)
+                  (s-chomp (shell-command-to-string "evm bin")))))
+      (if (f-exists? path)
+          (car (s-match (f-join evm-local-path "\\([^/]+\\)") path))
+        (error "No currently selected Emacs")))))
 
 (defun evm--osx? ()
   "Return true if OSX, false otherwise."
